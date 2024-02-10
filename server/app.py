@@ -29,13 +29,13 @@ def games():
     # first_10_games = Game.query.limit(5).all()
     for game in games_query:
         game_dict = {
-            "id": game.id,
             "title": game.title,
             "genre": game.genre,
             "platform": game.platform,
             "price": game.price
         }
 
+        game_dict = game.to_dict()
         games.append(game_dict)
 
     response = make_response(
@@ -52,12 +52,13 @@ def game_by_id(id):
     game = Game.query.filter_by(id=id).first()
 
     game_dict = {
-        "id": game.id,
         "title": game.title,
         "genre": game.genre,
         "platform": game.platform,
         "price": game.price,
     }
+
+    game_dict = game.to_dict()
 
     response = make_response(
         jsonify(game_dict),
